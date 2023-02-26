@@ -1,0 +1,49 @@
+<section class="add-product-component">
+
+  <mat-card>
+    <mat-card-title>{{MODE === 'ADD_MODE'? "Add New Product" : "Edit Product N°"+id}}</mat-card-title>
+    <mat-card-content>
+        <form name="produitForm" #produitForm="ngForm" (ngSubmit)="MODE === 'ADD_MODE'? OnAddProduct(produitForm.value): OnEditProduct(produitForm.value)">
+          <div class="add-product-forms">
+            <mat-form-field appearance="outline">
+              <mat-label>Title</mat-label>
+              <input required minlength="5" maxlength="30" [(ngModel)]="produit.title" name="title" #title="ngModel" matInput>
+              <mat-error *ngIf="title.touched && title.invalid">
+                <p *ngIf="title.errors?.['required']">Title is required</p>
+                <p *ngIf="title.errors?.['minlength']">minimum length 5 characters</p>
+                <p *ngIf="title.errors?.['maxlength']">maximum length 30 characters</p>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Description</mat-label>
+              <input required [(ngModel)]="produit.description" name="description" #description="ngModel" matInput>
+              <mat-error *ngIf="description.touched && description.invalid">
+                <p *ngIf="description.errors?.['required']">Description is required</p>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Brand</mat-label>
+              <input required [(ngModel)]="produit.brand" name="brand" #brand="ngModel" matInput>
+              <mat-error *ngIf="brand.touched && brand.invalid">
+                <p *ngIf="brand.errors?.['required']">Brand is required</p>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Price</mat-label>
+              <input required min="0" max="10000" step="1" type="number" [(ngModel)]="produit.price" name="price" #price="ngModel" matInput>
+              <mat-error *ngIf="price.touched && price.invalid">
+                <p *ngIf="price.errors?.['required']">Price is required</p>
+                <p *ngIf="price.errors?.['min']">Price is >= 0</p>
+                <p *ngIf="price.errors?.['max']">Price is <= 10000</p>
+              </mat-error>
+            </mat-form-field>
+
+            <button mat-flat-button color="primary" [disabled]="produitForm.invalid" >{{MODE === 'ADD_MODE'? "Add Product" : "Edit Product"}}</button>
+          </div>
+        </form>
+    </mat-card-content>
+  </mat-card>
+</section>

@@ -1,0 +1,23 @@
+<mat-grid-list cols="4" rowHeight="400px">
+  <mat-grid-tile *ngFor="let produit of produits;index as i">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{produit.title}}</mat-card-title>
+        <mat-card-subtitle>{{produit.brand}}</mat-card-subtitle>
+      </mat-card-header>
+      <img height="200" mat-card-image [src]="produit.thumbnail == '' ? '/assets/no-image-available.png' : produit.thumbnail">
+      <mat-card-content>
+        <p>{{produit.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="OnEditProduct(produit.id)" mat-icon-button aria-label="view product">
+          <mat-icon>build</mat-icon>
+        </button>
+        <button (click)="OnDeleteProduct(produit.id)" mat-icon-button color="warn" aria-label="delete product">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
